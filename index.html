@@ -3,141 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>DANIEL INVESTMENT MASTER V16.0</title>
+  <title>DANIEL COMMAND CENTER</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    body { background-color: #020202; color: #e2e8f0; font-family: sans-serif; overflow-x: hidden; }
-    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 10px; }
-    a { -webkit-tap-highlight-color: transparent; outline: none; }
-    iframe { border: none; transition: opacity 0.4s ease-in-out; pointer-events: auto; }
+    body { background-color: #020202; color: #e2e8f0; font-family: sans-serif; overflow-x: hidden; touch-action: manipulation; }
+    iframe { border: none; width: 100%; height: 100%; pointer-events: auto; }
+    .widget-container { background: #0a0a0a; border: 1px solid #1e293b; border-radius: 1rem; overflow: hidden; }
   </style>
 </head>
 <body class="p-2 md:p-6">
-  <div class="max-w-[1900px] mx-auto space-y-4 md:space-y-6">
-    <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center border-b border-slate-800 pb-5 gap-4">
+  <div class="max-w-[1900px] mx-auto space-y-4">
+    <header class="flex flex-col gap-4 border-b border-slate-800 pb-5">
       <div class="flex items-center gap-3">
-        <div class="bg-indigo-600 p-2 md:p-3 rounded-xl shadow-lg shadow-indigo-500/30 animate-pulse">
-          <i data-lucide="globe" class="w-6 h-6 md:w-8 md:h-8 text-white"></i>
-        </div>
-        <div>
-          <h1 class="text-xl md:text-3xl font-black text-white tracking-tighter flex items-center gap-2 uppercase">
-            Daniel Investment Command
-            <span class="text-[10px] md:text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-md font-black">V16.0 MASTER</span>
-          </h1>
-          <div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-slate-400 text-[11px] md:text-sm font-bold">
-            <span class="flex items-center gap-1 text-emerald-500"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> 실시간 직접 데이터망</span>
-            <span class="flex items-center gap-1 text-indigo-400"><i data-lucide="activity" class="w-3.5 h-3.5"></i> 서버 직결 스트리밍 가동</span>
-          </div>
-        </div>
+        <div class="bg-indigo-600 p-2 rounded-xl shadow-lg shadow-indigo-500/30"><i data-lucide="globe" class="w-6 h-6 text-white"></i></div>
+        <h1 class="text-xl font-black text-white uppercase tracking-tighter">Daniel Command <span class="text-indigo-400">V16.5</span></h1>
       </div>
-      <div class="flex items-center gap-3 w-full lg:w-auto">
-        <div class="flex-col items-end mr-2 hidden sm:flex">
-          <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest text-right flex items-center gap-1">
-            <i data-lucide="clock" class="w-3 h-3"></i> Last Sync
-          </span>
-          <span id="lastSyncTime" class="text-sm font-mono text-indigo-400 font-black text-right w-full">--:--:--</span>
-        </div>
-        <button id="syncBtn" class="flex-grow lg:flex-none flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-black transition-all bg-indigo-600 hover:bg-indigo-500 shadow-xl text-white active:scale-95 border-b-4 border-indigo-900">
-          <i data-lucide="refresh-cw" id="syncIcon" class="w-5 h-5"></i>
-          실시간 데이터 즉시 업데이트
-        </button>
-      </div>
+      <button id="refreshBtn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-4 rounded-xl font-black shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+        <i data-lucide="refresh-cw" id="refreshIcon"></i> 실시간 데이터 즉시 업데이트
+      </button>
     </header>
 
-    <div class="w-full h-12 bg-black rounded-lg overflow-hidden border border-slate-800 shadow-2xl relative z-10">
-      <iframe class="widget-frame w-full h-full pointer-events-none" scrolling="no" allowtransparency="true" src="https://s.tradingview.com/embed-widget/ticker-tape/?locale=kr&colorTheme=dark&isTransparent=true&displayMode=regular&showSymbolLogo=true&symbols=%5B%7B%22proName%22%3A%22NASDAQ%3AIXIC%22%2C%22title%22%3A%22나스닥%22%7D%2C%7B%22proName%22%3A%22SP%3ASPX%22%2C%22title%22%3A%22S%26P%20500%22%7D%2C%7B%22proName%22%3A%22KRX%3AKOSPI%22%2C%22title%22%3A%22KOSPI%22%7D%2C%7B%22proName%22%3A%22FX_IDC%3AUSDKRW%22%2C%22title%22%3A%22원%2F달러%22%7D%2C%7B%22proName%22%3A%22COMEX%3AGC1!%22%2C%22title%22%3A%22Gold%22%7D%2C%7B%22proName%22%3A%22NYMEX%3ACL1!%22%2C%22title%22%3A%22WTI%22%7D%5D"></iframe>
+    <div class="h-12 widget-container">
+      <iframe src="https://s.tradingview.com/embed-widget/ticker-tape/?locale=kr&colorTheme=dark&isTransparent=true&symbols=%5B%7B%22proName%22%3A%22NASDAQ%3AIXIC%22%2C%22title%22%3A%22나스닥%22%7D%2C%7B%22proName%22%3A%22KRX%3AKOSPI%22%2C%22title%22%3A%22KOSPI%22%7D%2C%7B%22proName%22%3A%22FX_IDC%3AUSDKRW%22%2C%22title%22%3A%22원/달러%22%7D%5D"></iframe>
     </div>
 
-    <div class="grid grid-cols-1 xl:grid-cols-12 gap-4 md:gap-6">
-      <div class="xl:col-span-8 bg-[#0a0a0a] border border-slate-800 rounded-2xl p-3 md:p-5 flex flex-col h-[500px] md:h-[600px] shadow-2xl">
-        <div class="flex grow rounded-xl overflow-hidden bg-black border border-slate-900 shadow-inner">
-          <iframe class="widget-frame w-full h-full pointer-events-auto" scrolling="no" allowtransparency="true" src="https://s.tradingview.com/embed-widget/stock-heatmap/?locale=kr&dataSource=KRX&colorTheme=dark&hasSymbolLogo=true&grouping=sector&market=all&symbolBy=market_cap&size=market_cap&color=change"></iframe>
-        </div>
+    <div class="h-[500px] widget-container">
+      <div class="p-3 border-b border-slate-800 flex justify-between items-center bg-[#0d0d0d]">
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1"><i data-lucide="layout-grid" class="w-3 h-3"></i> 한국 시장 수급 (KRX)</span>
       </div>
-      <div class="xl:col-span-4 bg-[#0a0a0a] border border-slate-800 rounded-2xl p-3 md:p-5 flex flex-col h-[500px] md:h-[600px] shadow-2xl">
-        <div class="flex grow rounded-xl overflow-hidden bg-black border border-slate-900 shadow-inner">
-          <iframe class="widget-frame w-full h-full pointer-events-auto" scrolling="no" allowtransparency="true" src="https://s.tradingview.com/embed-widget/hotlists/?locale=kr&exchange=KRX&colorTheme=dark&isTransparent=true&hasSymbolLogo=true&width=100%25&height=100%25"></iframe>
-        </div>
-      </div>
+      <iframe id="krxHeatmap" src="https://s.tradingview.com/embed-widget/stock-heatmap/?locale=kr&dataSource=KRX&colorTheme=dark&hasSymbolLogo=true&grouping=sector&market=all&symbolBy=market_cap&size=market_cap&color=change"></iframe>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
-      <div class="lg:col-span-8 bg-gradient-to-br from-slate-900 to-black border border-slate-800 rounded-2xl p-4 md:p-6 shadow-2xl relative overflow-hidden">
-        <div class="flex items-center gap-2 mb-4 border-b border-slate-800 pb-3 relative z-10">
-          <i data-lucide="message-square" class="w-5 h-5 text-indigo-400"></i>
-          <h2 class="font-black text-white uppercase tracking-tight text-sm">Daniel's Strategic Commentary</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10 text-sm text-slate-300">
-          <div class="bg-[#0f111a] p-4 rounded-xl border-l-4 border-indigo-500">
-            <h3 class="text-indigo-400 font-black mb-1 uppercase">실시간 산업군 주도세</h3>
-            히트맵의 특정 소섹터가 진한 녹색이면 기관 주도 집중 매수 신호입니다.
-          </div>
-          <div class="bg-[#0f111a] p-4 rounded-xl border-l-4 border-emerald-500">
-            <h3 class="text-emerald-400 font-black mb-1 uppercase">수급 유입 근거 확인</h3>
-            뉴스와 캘린더 지표를 터치하여 모바일에서도 즉시 원본 근거를 확보하십시오.
-          </div>
-        </div>
-      </div>
-      <div class="lg:col-span-4 bg-[#0a0a0a] border border-slate-800 rounded-2xl p-3 md:p-5 flex flex-col min-h-[350px] shadow-2xl">
-        <iframe class="widget-frame w-full h-full pointer-events-none" scrolling="no" allowtransparency="true" src="https://s.tradingview.com/embed-widget/technical-analysis/?locale=kr&colorTheme=dark&symbol=NASDAQ%3AIXIC&interval=1h&isTransparent=true"></iframe>
-      </div>
+    <div class="h-[400px] widget-container">
+      <iframe src="https://s.tradingview.com/embed-widget/technical-analysis/?locale=kr&colorTheme=dark&symbol=NASDAQ%3AIXIC&interval=1h&isTransparent=true"></iframe>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
-      <div class="bg-[#0a0a0a] border border-slate-800 rounded-2xl p-3 md:p-5 flex flex-col h-[450px] shadow-2xl">
-        <iframe class="widget-frame w-full h-full pointer-events-auto" scrolling="no" allowtransparency="true" src="https://s.tradingview.com/embed-widget/events/?locale=kr&colorTheme=dark&isTransparent=true&importanceFilter=-1%2C0%2C1&currencyFilter=USD%2CKRW%2CEUR&height=400"></iframe>
+    <div class="h-[450px] widget-container">
+      <div class="p-3 border-b border-slate-800 bg-[#0d0d0d] flex items-center gap-2">
+        <i data-lucide="newspaper" class="w-4 h-4 text-amber-400"></i>
+        <span class="text-xs font-bold text-white uppercase">Real-time Intelligence</span>
       </div>
-      <div class="bg-[#0a0a0a] border border-slate-800 rounded-2xl p-3 md:p-5 flex flex-col h-[450px] shadow-2xl">
-        <iframe class="widget-frame w-full h-full pointer-events-auto" scrolling="no" allowtransparency="true" src="https://s.tradingview.com/embed-widget/timeline/?locale=kr&colorTheme=dark&isTransparent=true&displayMode=regular&height=400"></iframe>
-      </div>
+      <iframe id="newsWidget" src="https://s.tradingview.com/embed-widget/timeline/?locale=kr&colorTheme=dark&isTransparent=true&displayMode=regular"></iframe>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 pb-12">
-      <a href="https://whalewisdom.com/" target="_blank" class="p-6 bg-[#0c0c0c] border border-slate-800 hover:border-indigo-500 rounded-2xl transition-all shadow-xl active:scale-[0.97]">
-        <i data-lucide="target" class="w-8 h-8 text-indigo-400 mb-2"></i>
-        <div class="font-black text-white text-xl tracking-tighter uppercase">WhaleWisdom</div>
-        <p class="text-xs text-slate-500 mt-1 font-bold">기관 13F 공식 공시 분석</p>
+    <div class="grid grid-cols-2 gap-3 pb-10">
+      <a href="https://finance.naver.com/sise/" target="_blank" class="p-4 bg-slate-900 border border-slate-800 rounded-xl flex flex-col items-center gap-2">
+        <i data-lucide="bar-chart-3" class="text-emerald-400"></i>
+        <span class="text-[10px] font-bold">네이버 수급</span>
       </a>
-      <a href="https://finance.naver.com/sise/" target="_blank" class="p-6 bg-[#0c0c0c] border border-slate-800 hover:border-emerald-500 rounded-2xl transition-all shadow-xl active:scale-[0.97]">
-        <i data-lucide="bar-chart-3" class="w-8 h-8 text-emerald-400 mb-2"></i>
-        <div class="font-black text-white text-xl tracking-tighter uppercase">Naver Stock</div>
-        <p class="text-xs text-slate-500 mt-1 font-bold">국내 장중 수급 상세 분석</p>
-      </a>
-      <a href="https://edition.cnn.com/markets/fear-and-greed" target="_blank" class="p-6 bg-[#0c0c0c] border border-slate-800 hover:border-rose-500 rounded-2xl transition-all shadow-xl active:scale-[0.97]">
-        <i data-lucide="zap" class="w-8 h-8 text-rose-400 mb-2"></i>
-        <div class="font-black text-white text-xl tracking-tighter uppercase">Fear & Greed</div>
-        <p class="text-xs text-slate-500 mt-1 font-bold">글로벌 투자 심리 측정</p>
-      </a>
-      <a href="https://www.cmegroup.com/markets/interest-rates/target-rate-probabilities.html" target="_blank" class="p-6 bg-[#0c0c0c] border border-slate-800 hover:border-blue-500 rounded-2xl transition-all shadow-xl active:scale-[0.97]">
-        <i data-lucide="shield-check" class="w-8 h-8 text-blue-400 mb-2"></i>
-        <div class="font-black text-white text-xl tracking-tighter uppercase">CME FedWatch</div>
-        <p class="text-xs text-slate-500 mt-1 font-bold">미 연준 기준금리 인상 확률</p>
+      <a href="https://whalewisdom.com/" target="_blank" class="p-4 bg-slate-900 border border-slate-800 rounded-xl flex flex-col items-center gap-2">
+        <i data-lucide="target" class="text-indigo-400"></i>
+        <span class="text-[10px] font-bold">기관 매집</span>
       </a>
     </div>
-
-    <footer class="text-center pb-12 pt-6 border-t border-slate-900 text-slate-500 text-[10px] font-bold uppercase tracking-widest">
-      Direct HTML Node for Daniel • Ver 16.0 Master
-    </footer>
   </div>
 
   <script>
     lucide.createIcons();
-    const syncBtn = document.getElementById('syncBtn');
-    const timeDisplay = document.getElementById('lastSyncTime');
-    const iframes = document.querySelectorAll('.widget-frame');
-    function updateTimestamp() {
-      timeDisplay.textContent = new Date().toLocaleTimeString('ko-KR', { hour12: false });
-    }
-    syncBtn.addEventListener('click', () => {
-      syncBtn.classList.add('scale-95');
-      updateTimestamp();
-      iframes.forEach(iframe => { iframe.src = iframe.src; });
-      setTimeout(() => syncBtn.classList.remove('scale-95'), 200);
+    const btn = document.getElementById('refreshBtn');
+    const icon = document.getElementById('refreshIcon');
+    btn.addEventListener('click', () => {
+      icon.classList.add('animate-spin');
+      document.querySelectorAll('iframe').forEach(f => f.src = f.src);
+      setTimeout(() => icon.classList.remove('animate-spin'), 1000);
     });
-    updateTimestamp();
-    setInterval(updateTimestamp, 60000);
   </script>
 </body>
 </html>
